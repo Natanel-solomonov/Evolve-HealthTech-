@@ -1,0 +1,227 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Privacy Policy</title>
+    <link rel="icon" href="{% static 'evolve logo trans.png' %}" type="image/png">
+    <!-- Inter font → same look & feel as reference image -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Base gradient + utilities shared across the site -->
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+
+    <style>
+        /* Reset inherited fixed-height rule from site-wide css so page scrolls */
+        html, body {
+            height: auto;
+            overflow-y: auto;
+            /* Same gradient background used on main waitlist site */
+            background-color: #ffffff; /* fallback */
+            background-image:
+                radial-gradient(ellipse 180% 120% at 60% 40%, rgba(253,138,138,0.2) 0%, rgba(158,161,212,0.2) 25%, rgba(94,177,212,0.1) 45%, rgba(255,255,255,0) 65%),
+                radial-gradient(ellipse 180% 120% at 40% 60%, rgba(253,138,138,0.2) 0%, rgba(158,161,212,0.2) 25%, rgba(94,177,212,0.1) 45%, rgba(255,255,255,0) 65%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #111;
+        }
+
+        /* Main grid layout */
+        .policy-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 260px; /* content | toc */
+            gap: 48px;
+            max-width: 1200px;
+            margin: 60px auto 120px auto;
+            padding: 0 24px;
+        }
+
+        /* Mobile: stack */
+        @media (max-width: 900px) {
+            .policy-layout {
+                grid-template-columns: 1fr;
+            }
+            nav.toc {
+                order: -1; /* put toc above content on narrow view */
+                margin-bottom: 32px;
+            }
+        }
+
+        /* Table of contents */
+        nav.toc {
+            position: sticky;
+            top: 40px;
+            align-self: start;
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            padding: 24px 24px 32px 24px;
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+        nav.toc h3 {
+            margin-top: 0;
+            font-size: 1.15rem;
+            font-weight: 600;
+            padding-bottom: 0.6rem;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        nav.toc ol {
+            list-style: decimal;
+            padding-inline-start: 20px;
+            margin: 0;
+        }
+        nav.toc a {
+            text-decoration: none;
+            color: inherit;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+        nav.toc a:hover {
+            text-decoration: underline;
+        }
+
+        /* Content column */
+        article {
+            background: #ffffff;
+            padding: 60px 48px 80px 48px;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+        }
+        article img.logo {
+            width: 70px;
+            margin-bottom: 32px;
+        }
+        h1 {
+            font-size: clamp(2.2rem, 1.8rem + 1.5vw, 3rem);
+            margin: 0 0 4px 0;
+            font-weight: 600;
+        }
+        .meta-dates {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 40px;
+        }
+        h2 {
+            font-size: 1.3rem;
+            margin-top: 2.5rem;
+        }
+        p, li {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin: 0.4rem 0;
+        }
+        ul {
+            padding-left: 1.4rem;
+        }
+        /* Remove bullet style for contact list */
+        .contact-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .back-to-top {
+            display: inline-block;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <a id="top"></a>
+    <main class="policy-layout">
+        <!-- Primary article content -->
+        <article>
+            <a href="/" tabindex="0" aria-label="Back to home"><img src="{% static 'evolve logo trans.png' %}" alt="Evolve Logo" class="logo" style="cursor:pointer;"></a>
+            <h1>Privacy Policy</h1>
+            <p class="meta-dates">Effective Date: June&nbsp;12,&nbsp;2025 • Last Updated: June&nbsp;12,&nbsp;2025</p>
+
+            <p>Evolve Wellness Incorporated ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you use our mobile application, <strong>Evolve: Intelligent Wellness</strong> (the "App").</p>
+
+            <h2 id="information-we-collect">1. Information We Collect</h2>
+            <p>When you use the App, we may collect the following types of information:</p>
+            <ul>
+                <li><strong>Personal Information</strong> – such as your name and phone number.</li>
+                <li><strong>Health Data</strong> – metrics that you explicitly permit us to access from Apple HealthKit.</li>
+                <li><strong>Device Information</strong> – details about the device and operating system you use (e.g. model, OS version).</li>
+            </ul>
+
+            <h2 id="how-we-collect">2. How We Collect Your Data</h2>
+            <ul>
+                <li><strong>Forms You Complete</strong> – for example, during account creation or profile customization.</li>
+                <li><strong>Apple HealthKit Integration</strong> – only after you grant permission, we securely retrieve the health metrics necessary to personalize your experience.</li>
+            </ul>
+
+            <h2 id="how-we-use">3. How We Use Your Data</h2>
+            <p>Your data enables us to:</p>
+            <ul>
+                <li>Personalize your wellness experience in the App.</li>
+                <li>Generate tailored health plans and insights.</li>
+                <li>Support the core functionality of the App.</li>
+            </ul>
+
+            <h2 id="data-sharing">4. Data Sharing and Disclosure</h2>
+            <p>We are committed to maintaining your trust, and we do not sell your personal information to third parties.</p>
+            <ul>
+                <li>We may share your information with third-party vendors and service providers who perform services on our behalf, such as cloud hosting (e.g., Railway), analytics, and customer support. These providers are contractually obligated to safeguard your data and are not permitted to use it for their own purposes.</li>
+                <li>We may disclose your information if required by law, such as to comply with a subpoena or other legal process.</li>
+            </ul>
+
+            <h2 id="data-retention">5. Data Retention</h2>
+            <ul>
+                <li>Your data is retained while your account is active.</li>
+                <li>If your account becomes inactive, we delete your data 12 months after your last activity.</li>
+            </ul>
+
+            <h2 id="user-rights">6. Your Rights</h2>
+            <p>Depending on your jurisdiction, you may have the following rights regarding your personal information:</p>
+            <ul>
+                <li><strong>Right to Access:</strong> You can request a copy of the personal data we hold about you.</li>
+                <li><strong>Right to Rectification:</strong> You can request that we correct any inaccurate or incomplete data.</li>
+                <li><strong>Right to Erasure (Deletion):</strong> You can request that we delete your personal data. This can be done via in-app settings or by emailing us.</li>
+                <li><strong>Right to Data Portability:</strong> You can request a copy of your data in a machine-readable format.</li>
+                <li><strong>Right to Object:</strong> You can object to us processing your personal data for certain purposes.</li>
+            </ul>
+            <p>To exercise any of these rights, please contact us at <a href="mailto:privacy@joinevolve.app">privacy@joinevolve.app</a>.</p>
+
+            <h2 id="data-security">7. Data Security</h2>
+            <p>We employ appropriate technical and organizational measures to protect your information. All health data is processed in compliance with Apple's HealthKit policies and stored using industry-standard encryption.</p>
+
+            <h2 id="children">8. Children's Privacy</h2>
+            <p>The App is not intended for children under 13. We do not knowingly collect information from children in this age group. If we learn that we have done so, we will delete the information promptly.</p>
+
+            <h2 id="jurisdiction">9. Jurisdiction</h2>
+            <p>This Privacy Policy and any related disputes are governed by the laws of the State of Delaware, United States.</p>
+
+            <h2 id="contact">10. Contact Us</h2>
+            <p>If you have any questions about this Privacy Policy or your data, please reach out:</p>
+            <ul class="contact-list">
+                <li><strong>Email:</strong> <a href="mailto:privacy@joinevolve.app">privacy@joinevolve.app</a></li>
+                <li><strong>Address:</strong> 1111B S Governors Ave STE 29868, Dover, DE 19904, USA</li>
+            </ul>
+
+            <a href="#top" class="back-to-top">Back to top ↑</a>
+
+            <p style="text-align:center;margin-top:3rem;font-size:0.85rem;color:#888;">© {% now "Y" %} Evolve Wellness Incorporated. All rights reserved.</p>
+        </article>
+
+        <!-- Sticky table of contents -->
+        <nav class="toc" aria-label="Table of contents">
+            <h3>Table of contents</h3>
+            <ol>
+                <li><a href="#information-we-collect">What information we collect</a></li>
+                <li><a href="#how-we-collect">How we collect your data</a></li>
+                <li><a href="#how-we-use">How we use your data</a></li>
+                <li><a href="#data-sharing">Data sharing & disclosure</a></li>
+                <li><a href="#data-retention">Data retention</a></li>
+                <li><a href="#user-rights">Your rights</a></li>
+                <li><a href="#data-security">Data security</a></li>
+                <li><a href="#children">Children's privacy</a></li>
+                <li><a href="#jurisdiction">Jurisdiction</a></li>
+                <li><a href="#contact">Contact us</a></li>
+            </ol>
+        </nav>
+    </main>
+</body>
+</html> 

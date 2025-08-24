@@ -1,0 +1,447 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>api.views &mdash; Evolve Backend 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Evolve Backend
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Evolve Backend</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">api.views</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for api.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework</span><span class="w"> </span><span class="kn">import</span> <span class="n">generics</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Activity</span><span class="p">,</span> <span class="n">Workout</span><span class="p">,</span> <span class="n">Exercise</span><span class="p">,</span> <span class="n">AppUser</span><span class="p">,</span> <span class="n">AppUserInfo</span><span class="p">,</span> <span class="n">ActivityPlan</span><span class="p">,</span> <span class="n">AppUserActivityPlanHistory</span><span class="p">,</span> <span class="n">AppUserCurrentActivityPlan</span><span class="p">,</span> <span class="n">AppUserGoals</span><span class="p">,</span> <span class="n">Affiliate</span><span class="p">,</span> <span class="n">AffiliatePromotion</span><span class="p">,</span> <span class="n">AffiliatePromotionDiscountCode</span><span class="p">,</span> <span class="n">AffiliatePromotionRedemption</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.serializers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ActivitySerializer</span><span class="p">,</span> <span class="n">WorkoutSerializer</span><span class="p">,</span> <span class="n">ExerciseSerializer</span><span class="p">,</span>
+    <span class="n">ActivityPlanSerializer</span><span class="p">,</span> <span class="n">AppUserSerializer</span><span class="p">,</span> <span class="n">AppUserInfoSerializer</span><span class="p">,</span>
+    <span class="n">AppUserActivityPlanHistorySerializer</span><span class="p">,</span> <span class="n">AppUserCurrentActivityPlanSerializer</span><span class="p">,</span>
+    <span class="n">AppUserGoalsSerializer</span><span class="p">,</span> <span class="n">AffiliateSerializer</span><span class="p">,</span> <span class="n">AffiliatePromotionSerializer</span><span class="p">,</span> <span class="n">AffiliatePromotionDiscountCodeSerializer</span><span class="p">,</span> <span class="n">AffiliatePromotionRedemptionSerializer</span>
+<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">JsonResponse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.views.decorators.csrf</span><span class="w"> </span><span class="kn">import</span> <span class="n">csrf_exempt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">twilio.rest</span><span class="w"> </span><span class="kn">import</span> <span class="n">Client</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.conf</span><span class="w"> </span><span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<div class="viewcode-block" id="clean_phone_number">
+<a class="viewcode-back" href="../../views.html#api.views.clean_phone_number">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">clean_phone_number</span><span class="p">(</span><span class="n">phone</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clean and validate the phone number to ensure it is in the format +11234567890.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Remove any non-digit characters except the leading &#39;+&#39;</span>
+    <span class="n">cleaned_phone</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[^\d+]&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">phone</span><span class="p">)</span>
+    
+    <span class="c1"># If the phone number doesn&#39;t start with &#39;+&#39;, assume it&#39;s a local number and prepend the country code</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">cleaned_phone</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">):</span>
+        <span class="n">cleaned_phone</span> <span class="o">=</span> <span class="s1">&#39;+1&#39;</span> <span class="o">+</span> <span class="n">cleaned_phone</span>
+    
+    <span class="c1"># Validate the format</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^\+\d</span><span class="si">{11}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="n">cleaned_phone</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Phone number must be in the format +11234567890.&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">cleaned_phone</span></div>
+
+
+<div class="viewcode-block" id="ActivityListView">
+<a class="viewcode-back" href="../../views.html#api.views.ActivityListView">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ActivityListView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">ListCreateAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    API view to retrieve list of activities or create a new one.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Activity</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ActivitySerializer</span></div>
+
+
+<div class="viewcode-block" id="ActivityDetailView">
+<a class="viewcode-back" href="../../views.html#api.views.ActivityDetailView">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ActivityDetailView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    API view to retrieve, update, or delete an activity.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Activity</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ActivitySerializer</span></div>
+
+
+<div class="viewcode-block" id="WorkoutListView">
+<a class="viewcode-back" href="../../views.html#api.views.WorkoutListView">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">WorkoutListView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">ListCreateAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    API view to retrieve a list of workouts or create a new workout.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Workout</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">WorkoutSerializer</span></div>
+
+
+<div class="viewcode-block" id="ExerciseListView">
+<a class="viewcode-back" href="../../views.html#api.views.ExerciseListView">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ExerciseListView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">ListCreateAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    API view to retrieve a list of exercises or create a new exercise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Exercise</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ExerciseSerializer</span></div>
+
+
+<div class="viewcode-block" id="ExerciseDetailView">
+<a class="viewcode-back" href="../../views.html#api.views.ExerciseDetailView">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ExerciseDetailView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    API view to retrieve, update, or delete an exercise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Exercise</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ExerciseSerializer</span></div>
+
+
+<div class="viewcode-block" id="send_otp">
+<a class="viewcode-back" href="../../views.html#api.views.send_otp">[docs]</a>
+<span class="nd">@csrf_exempt</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">send_otp</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid JSON.&quot;</span><span class="p">},</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+        
+        <span class="n">phone</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;phone&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">phone</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;Phone number not provided.&quot;</span><span class="p">},</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">phone</span> <span class="o">=</span> <span class="n">clean_phone_number</span><span class="p">(</span><span class="n">phone</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)},</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+        
+        <span class="c1"># Generate a random 6-digit OTP</span>
+        <span class="n">otp_code</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100000</span><span class="p">,</span> <span class="mi">999999</span><span class="p">))</span>
+        
+        <span class="c1"># Retrieve or create the user by phone number.</span>
+        <span class="n">user</span><span class="p">,</span> <span class="n">created</span> <span class="o">=</span> <span class="n">AppUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span><span class="n">phone</span><span class="o">=</span><span class="n">phone</span><span class="p">)</span>
+        <span class="n">user</span><span class="o">.</span><span class="n">set_otp</span><span class="p">(</span><span class="n">otp_code</span><span class="p">)</span>
+        
+        <span class="c1"># If in testing mode (TWILIO_USE_FAKE=True), display the OTP in the terminal and in the response.</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="s2">&quot;TWILIO_USE_FAKE&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;TEST MODE: OTP for phone </span><span class="si">{</span><span class="n">phone</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">otp_code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span>
+                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;OTP sent successfully in test mode.&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;otp_code&quot;</span><span class="p">:</span> <span class="n">otp_code</span>
+            <span class="p">})</span>
+        
+        <span class="c1"># Otherwise, use Twilio to send the SMS.</span>
+        <span class="n">account_sid</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">TWILIO_ACCOUNT_SID</span>
+        <span class="n">auth_token</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">TWILIO_AUTH_TOKEN</span>
+        <span class="n">from_phone</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">TWILIO_PHONE_NUMBER</span>
+        
+        <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">account_sid</span><span class="p">,</span> <span class="n">auth_token</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+                <span class="n">body</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Your OTP code is: </span><span class="si">{</span><span class="n">otp_code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">from_</span><span class="o">=</span><span class="n">from_phone</span><span class="p">,</span>
+                <span class="n">to</span><span class="o">=</span><span class="n">phone</span>  <span class="c1"># Ensure that the phone number is in the correct format.</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)},</span> <span class="n">status</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;OTP sent successfully.&quot;</span><span class="p">})</span>
+    
+    <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid request method.&quot;</span><span class="p">},</span> <span class="n">status</span><span class="o">=</span><span class="mi">405</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="verify_otp">
+<a class="viewcode-back" href="../../views.html#api.views.verify_otp">[docs]</a>
+<span class="nd">@csrf_exempt</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">verify_otp</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid JSON.&quot;</span><span class="p">},</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+
+        <span class="n">phone</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;phone&quot;</span><span class="p">)</span>
+        <span class="n">otp</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;otp&quot;</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">phone</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">otp</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;Phone number, OTP, and name are required.&quot;</span><span class="p">},</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">phone</span> <span class="o">=</span> <span class="n">clean_phone_number</span><span class="p">(</span><span class="n">phone</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)},</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">AppUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">phone</span><span class="o">=</span><span class="n">phone</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">AppUser</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;User does not exist.&quot;</span><span class="p">},</span> <span class="n">status</span><span class="o">=</span><span class="mi">404</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">is_otp_valid</span><span class="p">(</span><span class="n">otp</span><span class="p">):</span>
+            <span class="n">user</span><span class="o">.</span><span class="n">is_phone_verified</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">user</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>  <span class="c1"># Update the user&#39;s name</span>
+            <span class="n">user</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">update_fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;is_phone_verified&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">])</span>
+
+            <span class="c1"># Extract additional user info from the request</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">)</span>
+            <span class="n">birthday</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;birthday&quot;</span><span class="p">)</span>
+            <span class="n">weight</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;weight&quot;</span><span class="p">)</span>
+            <span class="n">sex</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sex&quot;</span><span class="p">)</span>
+
+            <span class="c1"># Validate the additional fields</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="n">height</span><span class="p">,</span> <span class="n">birthday</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">sex</span><span class="p">]):</span>
+                <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;All user info fields are required.&quot;</span><span class="p">},</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+
+            <span class="c1"># Create or update the AppUserInfo instance</span>
+            <span class="n">AppUserInfo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">update_or_create</span><span class="p">(</span>
+                <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
+                <span class="n">defaults</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="n">height</span><span class="p">,</span>
+                    <span class="s2">&quot;birthday&quot;</span><span class="p">:</span> <span class="n">birthday</span><span class="p">,</span>
+                    <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="n">weight</span><span class="p">,</span>
+                    <span class="s2">&quot;sex&quot;</span><span class="p">:</span> <span class="n">sex</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;OTP verified and user info updated successfully.&quot;</span><span class="p">})</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid or expired OTP.&quot;</span><span class="p">},</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;Invalid request method.&quot;</span><span class="p">},</span> <span class="n">status</span><span class="o">=</span><span class="mi">405</span><span class="p">)</span></div>
+
+
+<span class="c1"># --------------------------------------------------------------------</span>
+<span class="c1"># New Views for testing nested serializers</span>
+<span class="c1"># --------------------------------------------------------------------</span>
+<div class="viewcode-block" id="ActivityPlanListView">
+<a class="viewcode-back" href="../../views.html#api.views.ActivityPlanListView">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ActivityPlanListView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">ListCreateAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GET: Retrieve all ActivityPlan instances.</span>
+<span class="sd">    POST: Create a new ActivityPlan.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">ActivityPlan</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ActivityPlanSerializer</span></div>
+
+
+<div class="viewcode-block" id="ActivityPlanDetailView">
+<a class="viewcode-back" href="../../views.html#api.views.ActivityPlanDetailView">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ActivityPlanDetailView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GET: Retrieve a single ActivityPlan instance.</span>
+<span class="sd">    PUT/PATCH: Update an ActivityPlan.</span>
+<span class="sd">    DELETE: Remove an ActivityPlan.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">ActivityPlan</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ActivityPlanSerializer</span></div>
+
+
+<div class="viewcode-block" id="AppUserListView">
+<a class="viewcode-back" href="../../views.html#api.views.AppUserListView">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AppUserListView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">ListAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GET: Retrieve all AppUser instances.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">AppUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">AppUserSerializer</span></div>
+
+
+<div class="viewcode-block" id="AppUserDetailView">
+<a class="viewcode-back" href="../../views.html#api.views.AppUserDetailView">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AppUserDetailView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">RetrieveAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GET: Retrieve details for a single AppUser.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">AppUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">AppUserSerializer</span></div>
+
+
+<span class="c1"># --------------------------------------------------------------------</span>
+<span class="c1"># New Views for Affiliate APIs</span>
+<span class="c1"># --------------------------------------------------------------------</span>
+<div class="viewcode-block" id="AffiliateListView">
+<a class="viewcode-back" href="../../views.html#api.views.AffiliateListView">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AffiliateListView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">ListCreateAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GET: Retrieve the list of affiliates.</span>
+<span class="sd">    POST: Create a new affiliate.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Affiliate</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">AffiliateSerializer</span></div>
+
+
+
+<div class="viewcode-block" id="AffiliateDetailView">
+<a class="viewcode-back" href="../../views.html#api.views.AffiliateDetailView">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AffiliateDetailView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GET: Retrieve details for a single affiliate.</span>
+<span class="sd">    PUT/PATCH: Update the affiliate.</span>
+<span class="sd">    DELETE: Remove the affiliate.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Affiliate</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">AffiliateSerializer</span></div>
+
+
+
+<div class="viewcode-block" id="AffiliatePromotionListView">
+<a class="viewcode-back" href="../../views.html#api.views.AffiliatePromotionListView">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AffiliatePromotionListView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">ListCreateAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GET: Retrieve the list of affiliate promotions.</span>
+<span class="sd">    POST: Create a new affiliate promotion.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">AffiliatePromotion</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">AffiliatePromotionSerializer</span></div>
+
+
+
+<div class="viewcode-block" id="AffiliatePromotionDetailView">
+<a class="viewcode-back" href="../../views.html#api.views.AffiliatePromotionDetailView">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AffiliatePromotionDetailView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GET: Retrieve details for a single affiliate promotion.</span>
+<span class="sd">    PUT/PATCH: Update the affiliate promotion.</span>
+<span class="sd">    DELETE: Remove the affiliate promotion.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">AffiliatePromotion</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">AffiliatePromotionSerializer</span></div>
+
+
+
+<div class="viewcode-block" id="AffiliatePromotionDiscountCodeListView">
+<a class="viewcode-back" href="../../views.html#api.views.AffiliatePromotionDiscountCodeListView">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AffiliatePromotionDiscountCodeListView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">ListCreateAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GET: Retrieve the list of discount codes.</span>
+<span class="sd">    POST: Create a new discount code.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">AffiliatePromotionDiscountCode</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">AffiliatePromotionDiscountCodeSerializer</span></div>
+
+
+
+<div class="viewcode-block" id="AffiliatePromotionDiscountCodeDetailView">
+<a class="viewcode-back" href="../../views.html#api.views.AffiliatePromotionDiscountCodeDetailView">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AffiliatePromotionDiscountCodeDetailView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GET: Retrieve details for a single discount code.</span>
+<span class="sd">    PUT/PATCH: Update the discount code.</span>
+<span class="sd">    DELETE: Remove the discount code.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">AffiliatePromotionDiscountCode</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">AffiliatePromotionDiscountCodeSerializer</span></div>
+
+
+
+<div class="viewcode-block" id="AffiliatePromotionRedemptionListView">
+<a class="viewcode-back" href="../../views.html#api.views.AffiliatePromotionRedemptionListView">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AffiliatePromotionRedemptionListView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">ListCreateAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GET: Retrieve the list of promotion redemptions.</span>
+<span class="sd">    POST: Create a new promotion redemption.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">AffiliatePromotionRedemption</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">AffiliatePromotionRedemptionSerializer</span></div>
+
+
+
+<div class="viewcode-block" id="AffiliatePromotionRedemptionDetailView">
+<a class="viewcode-back" href="../../views.html#api.views.AffiliatePromotionRedemptionDetailView">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AffiliatePromotionRedemptionDetailView</span><span class="p">(</span><span class="n">generics</span><span class="o">.</span><span class="n">RetrieveUpdateDestroyAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GET: Retrieve details for a single promotion redemption.</span>
+<span class="sd">    PUT/PATCH: Update the promotion redemption.</span>
+<span class="sd">    DELETE: Remove the promotion redemption.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">AffiliatePromotionRedemption</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">AffiliatePromotionRedemptionSerializer</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Your Name.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,573 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Views &mdash; Evolve Backend 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Evolve Backend
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Views</a><ul>
+<li><a class="reference internal" href="#module-api.views">API Views</a><ul>
+<li><a class="reference internal" href="#api.views.clean_phone_number"><code class="docutils literal notranslate"><span class="pre">clean_phone_number()</span></code></a></li>
+<li><a class="reference internal" href="#api.views.ActivityListView"><code class="docutils literal notranslate"><span class="pre">ActivityListView</span></code></a><ul>
+<li><a class="reference internal" href="#api.views.ActivityListView.queryset"><code class="docutils literal notranslate"><span class="pre">ActivityListView.queryset</span></code></a></li>
+<li><a class="reference internal" href="#api.views.ActivityListView.serializer_class"><code class="docutils literal notranslate"><span class="pre">ActivityListView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api.views.ActivityDetailView"><code class="docutils literal notranslate"><span class="pre">ActivityDetailView</span></code></a><ul>
+<li><a class="reference internal" href="#api.views.ActivityDetailView.queryset"><code class="docutils literal notranslate"><span class="pre">ActivityDetailView.queryset</span></code></a></li>
+<li><a class="reference internal" href="#api.views.ActivityDetailView.serializer_class"><code class="docutils literal notranslate"><span class="pre">ActivityDetailView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api.views.WorkoutListView"><code class="docutils literal notranslate"><span class="pre">WorkoutListView</span></code></a><ul>
+<li><a class="reference internal" href="#api.views.WorkoutListView.queryset"><code class="docutils literal notranslate"><span class="pre">WorkoutListView.queryset</span></code></a></li>
+<li><a class="reference internal" href="#api.views.WorkoutListView.serializer_class"><code class="docutils literal notranslate"><span class="pre">WorkoutListView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api.views.ExerciseListView"><code class="docutils literal notranslate"><span class="pre">ExerciseListView</span></code></a><ul>
+<li><a class="reference internal" href="#api.views.ExerciseListView.queryset"><code class="docutils literal notranslate"><span class="pre">ExerciseListView.queryset</span></code></a></li>
+<li><a class="reference internal" href="#api.views.ExerciseListView.serializer_class"><code class="docutils literal notranslate"><span class="pre">ExerciseListView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api.views.ExerciseDetailView"><code class="docutils literal notranslate"><span class="pre">ExerciseDetailView</span></code></a><ul>
+<li><a class="reference internal" href="#api.views.ExerciseDetailView.queryset"><code class="docutils literal notranslate"><span class="pre">ExerciseDetailView.queryset</span></code></a></li>
+<li><a class="reference internal" href="#api.views.ExerciseDetailView.serializer_class"><code class="docutils literal notranslate"><span class="pre">ExerciseDetailView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api.views.send_otp"><code class="docutils literal notranslate"><span class="pre">send_otp()</span></code></a></li>
+<li><a class="reference internal" href="#api.views.verify_otp"><code class="docutils literal notranslate"><span class="pre">verify_otp()</span></code></a></li>
+<li><a class="reference internal" href="#api.views.ActivityPlanListView"><code class="docutils literal notranslate"><span class="pre">ActivityPlanListView</span></code></a><ul>
+<li><a class="reference internal" href="#api.views.ActivityPlanListView.queryset"><code class="docutils literal notranslate"><span class="pre">ActivityPlanListView.queryset</span></code></a></li>
+<li><a class="reference internal" href="#api.views.ActivityPlanListView.serializer_class"><code class="docutils literal notranslate"><span class="pre">ActivityPlanListView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api.views.ActivityPlanDetailView"><code class="docutils literal notranslate"><span class="pre">ActivityPlanDetailView</span></code></a><ul>
+<li><a class="reference internal" href="#api.views.ActivityPlanDetailView.queryset"><code class="docutils literal notranslate"><span class="pre">ActivityPlanDetailView.queryset</span></code></a></li>
+<li><a class="reference internal" href="#api.views.ActivityPlanDetailView.serializer_class"><code class="docutils literal notranslate"><span class="pre">ActivityPlanDetailView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api.views.AppUserListView"><code class="docutils literal notranslate"><span class="pre">AppUserListView</span></code></a><ul>
+<li><a class="reference internal" href="#api.views.AppUserListView.queryset"><code class="docutils literal notranslate"><span class="pre">AppUserListView.queryset</span></code></a></li>
+<li><a class="reference internal" href="#api.views.AppUserListView.serializer_class"><code class="docutils literal notranslate"><span class="pre">AppUserListView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api.views.AppUserDetailView"><code class="docutils literal notranslate"><span class="pre">AppUserDetailView</span></code></a><ul>
+<li><a class="reference internal" href="#api.views.AppUserDetailView.queryset"><code class="docutils literal notranslate"><span class="pre">AppUserDetailView.queryset</span></code></a></li>
+<li><a class="reference internal" href="#api.views.AppUserDetailView.serializer_class"><code class="docutils literal notranslate"><span class="pre">AppUserDetailView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api.views.AffiliateListView"><code class="docutils literal notranslate"><span class="pre">AffiliateListView</span></code></a><ul>
+<li><a class="reference internal" href="#api.views.AffiliateListView.queryset"><code class="docutils literal notranslate"><span class="pre">AffiliateListView.queryset</span></code></a></li>
+<li><a class="reference internal" href="#api.views.AffiliateListView.serializer_class"><code class="docutils literal notranslate"><span class="pre">AffiliateListView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api.views.AffiliateDetailView"><code class="docutils literal notranslate"><span class="pre">AffiliateDetailView</span></code></a><ul>
+<li><a class="reference internal" href="#api.views.AffiliateDetailView.queryset"><code class="docutils literal notranslate"><span class="pre">AffiliateDetailView.queryset</span></code></a></li>
+<li><a class="reference internal" href="#api.views.AffiliateDetailView.serializer_class"><code class="docutils literal notranslate"><span class="pre">AffiliateDetailView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api.views.AffiliatePromotionListView"><code class="docutils literal notranslate"><span class="pre">AffiliatePromotionListView</span></code></a><ul>
+<li><a class="reference internal" href="#api.views.AffiliatePromotionListView.queryset"><code class="docutils literal notranslate"><span class="pre">AffiliatePromotionListView.queryset</span></code></a></li>
+<li><a class="reference internal" href="#api.views.AffiliatePromotionListView.serializer_class"><code class="docutils literal notranslate"><span class="pre">AffiliatePromotionListView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api.views.AffiliatePromotionDetailView"><code class="docutils literal notranslate"><span class="pre">AffiliatePromotionDetailView</span></code></a><ul>
+<li><a class="reference internal" href="#api.views.AffiliatePromotionDetailView.queryset"><code class="docutils literal notranslate"><span class="pre">AffiliatePromotionDetailView.queryset</span></code></a></li>
+<li><a class="reference internal" href="#api.views.AffiliatePromotionDetailView.serializer_class"><code class="docutils literal notranslate"><span class="pre">AffiliatePromotionDetailView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api.views.AffiliatePromotionDiscountCodeListView"><code class="docutils literal notranslate"><span class="pre">AffiliatePromotionDiscountCodeListView</span></code></a><ul>
+<li><a class="reference internal" href="#api.views.AffiliatePromotionDiscountCodeListView.queryset"><code class="docutils literal notranslate"><span class="pre">AffiliatePromotionDiscountCodeListView.queryset</span></code></a></li>
+<li><a class="reference internal" href="#api.views.AffiliatePromotionDiscountCodeListView.serializer_class"><code class="docutils literal notranslate"><span class="pre">AffiliatePromotionDiscountCodeListView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api.views.AffiliatePromotionDiscountCodeDetailView"><code class="docutils literal notranslate"><span class="pre">AffiliatePromotionDiscountCodeDetailView</span></code></a><ul>
+<li><a class="reference internal" href="#api.views.AffiliatePromotionDiscountCodeDetailView.queryset"><code class="docutils literal notranslate"><span class="pre">AffiliatePromotionDiscountCodeDetailView.queryset</span></code></a></li>
+<li><a class="reference internal" href="#api.views.AffiliatePromotionDiscountCodeDetailView.serializer_class"><code class="docutils literal notranslate"><span class="pre">AffiliatePromotionDiscountCodeDetailView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api.views.AffiliatePromotionRedemptionListView"><code class="docutils literal notranslate"><span class="pre">AffiliatePromotionRedemptionListView</span></code></a><ul>
+<li><a class="reference internal" href="#api.views.AffiliatePromotionRedemptionListView.queryset"><code class="docutils literal notranslate"><span class="pre">AffiliatePromotionRedemptionListView.queryset</span></code></a></li>
+<li><a class="reference internal" href="#api.views.AffiliatePromotionRedemptionListView.serializer_class"><code class="docutils literal notranslate"><span class="pre">AffiliatePromotionRedemptionListView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api.views.AffiliatePromotionRedemptionDetailView"><code class="docutils literal notranslate"><span class="pre">AffiliatePromotionRedemptionDetailView</span></code></a><ul>
+<li><a class="reference internal" href="#api.views.AffiliatePromotionRedemptionDetailView.queryset"><code class="docutils literal notranslate"><span class="pre">AffiliatePromotionRedemptionDetailView.queryset</span></code></a></li>
+<li><a class="reference internal" href="#api.views.AffiliatePromotionRedemptionDetailView.serializer_class"><code class="docutils literal notranslate"><span class="pre">AffiliatePromotionRedemptionDetailView.serializer_class</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#website-views">Website Views</a><ul>
+<li><a class="reference internal" href="#website.views.affiliate_dashboard"><code class="docutils literal notranslate"><span class="pre">affiliate_dashboard()</span></code></a></li>
+<li><a class="reference internal" href="#website.views.create_promotion"><code class="docutils literal notranslate"><span class="pre">create_promotion()</span></code></a></li>
+<li><a class="reference internal" href="#website.views.redeem_code"><code class="docutils literal notranslate"><span class="pre">redeem_code()</span></code></a></li>
+<li><a class="reference internal" href="#website.views.my_promotions"><code class="docutils literal notranslate"><span class="pre">my_promotions()</span></code></a></li>
+<li><a class="reference internal" href="#website.views.my_affiliate_code"><code class="docutils literal notranslate"><span class="pre">my_affiliate_code()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Evolve Backend</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Views</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/views.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="views">
+<h1>Views<a class="headerlink" href="#views" title="Link to this heading"></a></h1>
+<section id="module-api.views">
+<span id="api-views"></span><h2>API Views<a class="headerlink" href="#module-api.views" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="api.views.clean_phone_number">
+<span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">clean_phone_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phone</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#clean_phone_number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.clean_phone_number" title="Link to this definition"></a></dt>
+<dd><p>Clean and validate the phone number to ensure it is in the format +11234567890.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="api.views.ActivityListView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">ActivityListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#ActivityListView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.ActivityListView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ListCreateAPIView</span></code></p>
+<p>API view to retrieve list of activities or create a new one.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.ActivityListView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="headerlink" href="#api.views.ActivityListView.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.ActivityListView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#api.views.ActivityListView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="serializers.html#api.serializers.ActivitySerializer" title="api.serializers.ActivitySerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActivitySerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="api.views.ActivityDetailView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">ActivityDetailView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#ActivityDetailView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.ActivityDetailView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RetrieveUpdateDestroyAPIView</span></code></p>
+<p>API view to retrieve, update, or delete an activity.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.ActivityDetailView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="headerlink" href="#api.views.ActivityDetailView.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.ActivityDetailView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#api.views.ActivityDetailView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="serializers.html#api.serializers.ActivitySerializer" title="api.serializers.ActivitySerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActivitySerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="api.views.WorkoutListView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">WorkoutListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#WorkoutListView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.WorkoutListView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ListCreateAPIView</span></code></p>
+<p>API view to retrieve a list of workouts or create a new workout.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.WorkoutListView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="headerlink" href="#api.views.WorkoutListView.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.WorkoutListView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#api.views.WorkoutListView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="serializers.html#api.serializers.WorkoutSerializer" title="api.serializers.WorkoutSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkoutSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="api.views.ExerciseListView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">ExerciseListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#ExerciseListView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.ExerciseListView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ListCreateAPIView</span></code></p>
+<p>API view to retrieve a list of exercises or create a new exercise.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.ExerciseListView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="headerlink" href="#api.views.ExerciseListView.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.ExerciseListView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#api.views.ExerciseListView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="serializers.html#api.serializers.ExerciseSerializer" title="api.serializers.ExerciseSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExerciseSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="api.views.ExerciseDetailView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">ExerciseDetailView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#ExerciseDetailView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.ExerciseDetailView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RetrieveUpdateDestroyAPIView</span></code></p>
+<p>API view to retrieve, update, or delete an exercise.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.ExerciseDetailView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="headerlink" href="#api.views.ExerciseDetailView.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.ExerciseDetailView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#api.views.ExerciseDetailView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="serializers.html#api.serializers.ExerciseSerializer" title="api.serializers.ExerciseSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExerciseSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.views.send_otp">
+<span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">send_otp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#send_otp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.send_otp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.views.verify_otp">
+<span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">verify_otp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#verify_otp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.verify_otp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="api.views.ActivityPlanListView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">ActivityPlanListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#ActivityPlanListView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.ActivityPlanListView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ListCreateAPIView</span></code></p>
+<p>GET: Retrieve all ActivityPlan instances.
+POST: Create a new ActivityPlan.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.ActivityPlanListView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="headerlink" href="#api.views.ActivityPlanListView.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.ActivityPlanListView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#api.views.ActivityPlanListView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="serializers.html#api.serializers.ActivityPlanSerializer" title="api.serializers.ActivityPlanSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActivityPlanSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="api.views.ActivityPlanDetailView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">ActivityPlanDetailView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#ActivityPlanDetailView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.ActivityPlanDetailView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RetrieveUpdateDestroyAPIView</span></code></p>
+<p>GET: Retrieve a single ActivityPlan instance.
+PUT/PATCH: Update an ActivityPlan.
+DELETE: Remove an ActivityPlan.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.ActivityPlanDetailView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="headerlink" href="#api.views.ActivityPlanDetailView.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.ActivityPlanDetailView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#api.views.ActivityPlanDetailView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="serializers.html#api.serializers.ActivityPlanSerializer" title="api.serializers.ActivityPlanSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActivityPlanSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="api.views.AppUserListView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">AppUserListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#AppUserListView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.AppUserListView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ListAPIView</span></code></p>
+<p>GET: Retrieve all AppUser instances.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AppUserListView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="headerlink" href="#api.views.AppUserListView.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AppUserListView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#api.views.AppUserListView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="serializers.html#api.serializers.AppUserSerializer" title="api.serializers.AppUserSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">AppUserSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="api.views.AppUserDetailView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">AppUserDetailView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#AppUserDetailView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.AppUserDetailView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RetrieveAPIView</span></code></p>
+<p>GET: Retrieve details for a single AppUser.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AppUserDetailView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="headerlink" href="#api.views.AppUserDetailView.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AppUserDetailView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#api.views.AppUserDetailView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="serializers.html#api.serializers.AppUserSerializer" title="api.serializers.AppUserSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">AppUserSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="api.views.AffiliateListView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">AffiliateListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#AffiliateListView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.AffiliateListView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ListCreateAPIView</span></code></p>
+<p>GET: Retrieve the list of affiliates.
+POST: Create a new affiliate.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AffiliateListView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="headerlink" href="#api.views.AffiliateListView.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AffiliateListView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#api.views.AffiliateListView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="serializers.html#api.serializers.AffiliateSerializer" title="api.serializers.AffiliateSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">AffiliateSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="api.views.AffiliateDetailView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">AffiliateDetailView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#AffiliateDetailView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.AffiliateDetailView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RetrieveUpdateDestroyAPIView</span></code></p>
+<p>GET: Retrieve details for a single affiliate.
+PUT/PATCH: Update the affiliate.
+DELETE: Remove the affiliate.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AffiliateDetailView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="headerlink" href="#api.views.AffiliateDetailView.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AffiliateDetailView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#api.views.AffiliateDetailView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="serializers.html#api.serializers.AffiliateSerializer" title="api.serializers.AffiliateSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">AffiliateSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="api.views.AffiliatePromotionListView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">AffiliatePromotionListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#AffiliatePromotionListView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.AffiliatePromotionListView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ListCreateAPIView</span></code></p>
+<p>GET: Retrieve the list of affiliate promotions.
+POST: Create a new affiliate promotion.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AffiliatePromotionListView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="headerlink" href="#api.views.AffiliatePromotionListView.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AffiliatePromotionListView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#api.views.AffiliatePromotionListView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="serializers.html#api.serializers.AffiliatePromotionSerializer" title="api.serializers.AffiliatePromotionSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">AffiliatePromotionSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="api.views.AffiliatePromotionDetailView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">AffiliatePromotionDetailView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#AffiliatePromotionDetailView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.AffiliatePromotionDetailView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RetrieveUpdateDestroyAPIView</span></code></p>
+<p>GET: Retrieve details for a single affiliate promotion.
+PUT/PATCH: Update the affiliate promotion.
+DELETE: Remove the affiliate promotion.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AffiliatePromotionDetailView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="headerlink" href="#api.views.AffiliatePromotionDetailView.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AffiliatePromotionDetailView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#api.views.AffiliatePromotionDetailView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="serializers.html#api.serializers.AffiliatePromotionSerializer" title="api.serializers.AffiliatePromotionSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">AffiliatePromotionSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="api.views.AffiliatePromotionDiscountCodeListView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">AffiliatePromotionDiscountCodeListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#AffiliatePromotionDiscountCodeListView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.AffiliatePromotionDiscountCodeListView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ListCreateAPIView</span></code></p>
+<p>GET: Retrieve the list of discount codes.
+POST: Create a new discount code.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AffiliatePromotionDiscountCodeListView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="headerlink" href="#api.views.AffiliatePromotionDiscountCodeListView.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AffiliatePromotionDiscountCodeListView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#api.views.AffiliatePromotionDiscountCodeListView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="serializers.html#api.serializers.AffiliatePromotionDiscountCodeSerializer" title="api.serializers.AffiliatePromotionDiscountCodeSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">AffiliatePromotionDiscountCodeSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="api.views.AffiliatePromotionDiscountCodeDetailView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">AffiliatePromotionDiscountCodeDetailView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#AffiliatePromotionDiscountCodeDetailView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.AffiliatePromotionDiscountCodeDetailView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RetrieveUpdateDestroyAPIView</span></code></p>
+<p>GET: Retrieve details for a single discount code.
+PUT/PATCH: Update the discount code.
+DELETE: Remove the discount code.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AffiliatePromotionDiscountCodeDetailView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="headerlink" href="#api.views.AffiliatePromotionDiscountCodeDetailView.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AffiliatePromotionDiscountCodeDetailView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#api.views.AffiliatePromotionDiscountCodeDetailView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="serializers.html#api.serializers.AffiliatePromotionDiscountCodeSerializer" title="api.serializers.AffiliatePromotionDiscountCodeSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">AffiliatePromotionDiscountCodeSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="api.views.AffiliatePromotionRedemptionListView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">AffiliatePromotionRedemptionListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#AffiliatePromotionRedemptionListView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.AffiliatePromotionRedemptionListView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ListCreateAPIView</span></code></p>
+<p>GET: Retrieve the list of promotion redemptions.
+POST: Create a new promotion redemption.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AffiliatePromotionRedemptionListView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="headerlink" href="#api.views.AffiliatePromotionRedemptionListView.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AffiliatePromotionRedemptionListView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#api.views.AffiliatePromotionRedemptionListView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="serializers.html#api.serializers.AffiliatePromotionRedemptionSerializer" title="api.serializers.AffiliatePromotionRedemptionSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">AffiliatePromotionRedemptionSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="api.views.AffiliatePromotionRedemptionDetailView">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api.views.</span></span><span class="sig-name descname"><span class="pre">AffiliatePromotionRedemptionDetailView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/views.html#AffiliatePromotionRedemptionDetailView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.views.AffiliatePromotionRedemptionDetailView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RetrieveUpdateDestroyAPIView</span></code></p>
+<p>GET: Retrieve details for a single promotion redemption.
+PUT/PATCH: Update the promotion redemption.
+DELETE: Remove the promotion redemption.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AffiliatePromotionRedemptionDetailView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="headerlink" href="#api.views.AffiliatePromotionRedemptionDetailView.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="api.views.AffiliatePromotionRedemptionDetailView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#api.views.AffiliatePromotionRedemptionDetailView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="serializers.html#api.serializers.AffiliatePromotionRedemptionSerializer" title="api.serializers.AffiliatePromotionRedemptionSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">AffiliatePromotionRedemptionSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="website-views">
+<h2>Website Views<a class="headerlink" href="#website-views" title="Link to this heading"></a></h2>
+<dl class="py function" id="module-website.views">
+<dt class="sig sig-object py" id="website.views.affiliate_dashboard">
+<span class="sig-prename descclassname"><span class="pre">website.views.</span></span><span class="sig-name descname"><span class="pre">affiliate_dashboard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/website/views.html#affiliate_dashboard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#website.views.affiliate_dashboard" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="website.views.create_promotion">
+<span class="sig-prename descclassname"><span class="pre">website.views.</span></span><span class="sig-name descname"><span class="pre">create_promotion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/website/views.html#create_promotion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#website.views.create_promotion" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="website.views.redeem_code">
+<span class="sig-prename descclassname"><span class="pre">website.views.</span></span><span class="sig-name descname"><span class="pre">redeem_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/website/views.html#redeem_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#website.views.redeem_code" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="website.views.my_promotions">
+<span class="sig-prename descclassname"><span class="pre">website.views.</span></span><span class="sig-name descname"><span class="pre">my_promotions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/website/views.html#my_promotions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#website.views.my_promotions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="website.views.my_affiliate_code">
+<span class="sig-prename descclassname"><span class="pre">website.views.</span></span><span class="sig-name descname"><span class="pre">my_affiliate_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/website/views.html#my_affiliate_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#website.views.my_affiliate_code" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Your Name.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

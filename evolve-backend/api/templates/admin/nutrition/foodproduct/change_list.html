@@ -1,0 +1,28 @@
+{% extends "admin/change_list.html" %} {% load i18n admin_urls static admin_list
+%} {% block content_title %}
+<h1>Food Products</h1>
+{% if large_dataset_warning %}
+<div
+  class="alert alert-warning"
+  style="
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    color: #856404;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 4px;
+  "
+>
+  <strong>⚠️ Large Dataset Warning:</strong>
+  This table contains {{ total_count|floatformat:0 }} food products. For better
+  performance, use the search and filter options to narrow down results.
+  <br /><br />
+  <strong>Tips:</strong>
+  <ul style="margin: 5px 0; padding-left: 20px">
+    <li>Use the search box to find specific products</li>
+    <li>Use filters to narrow down results</li>
+    <li>Only 25 products are shown per page</li>
+    <li>Consider using the API for programmatic access</li>
+  </ul>
+</div>
+{% endif %} {% endblock %} {% block content %} {{ block.super }} {% endblock %}

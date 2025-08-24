@@ -1,0 +1,71 @@
+{
+  "stats": {
+    "total_processed": 10,
+    "successful": 10,
+    "failed": 0,
+    "start_time": "2025-07-16 18:41:19.234751",
+    "errors": []
+  },
+  "results": [
+    {
+      "url": "https://www.allrecipes.com/recipe/100008/homemade-pickled-ginger-gari/",
+      "status": "success",
+      "recipe_id": "4dd13e33-5b55-45de-89a0-2b8c769a2783",
+      "title": "Homemade Pickled Ginger (Gari)"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/10001/chocolate-pizzelles/",
+      "status": "success",
+      "recipe_id": "3add2ad8-293a-4a99-bc11-8d9805bb6ef5",
+      "title": "Chocolate Pizzelles"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/100011/pork-and-black-bean-stew/",
+      "status": "success",
+      "recipe_id": "5a10ac01-5d53-4d60-9d78-b6135e1f6814",
+      "title": "Pork and Black Bean Stew"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/10003/cookie-press-shortbread/",
+      "status": "success",
+      "recipe_id": "5a69bdad-521d-49e1-99ee-24a97ab9d41e",
+      "title": "Cookie Press Shortbread"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/100056/jalapeno-poppers-of-champions/",
+      "status": "success",
+      "recipe_id": "168a5070-d05a-46e4-b64e-c974dc6bca75",
+      "title": "Jalapeno Poppers of Champions"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/100072/lobster-colorado/",
+      "status": "success",
+      "recipe_id": "e0edcc99-63b0-451d-8d4b-336c6896b6dd",
+      "title": "Lobster Colorado"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/10008/praline-cookies/",
+      "status": "success",
+      "recipe_id": "8e12e433-278f-4583-94b7-02c599bfc7f6",
+      "title": "Praline Cookies"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/100089/frosted-grapes/",
+      "status": "success",
+      "recipe_id": "fb78ad52-3aec-4672-827d-5cd4575b627c",
+      "title": "Frosted Grapes"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/100094/polish-sloppy-joes/",
+      "status": "success",
+      "recipe_id": "fdbac033-93fa-4a14-830d-aa686ab1a461",
+      "title": "Polish Sloppy Joes"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/10011/butter-cookies-ii/",
+      "status": "success",
+      "recipe_id": "301a7dcc-b94b-4d9c-9d86-a6928c95fd81",
+      "title": "Butter Cookies"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revenue Model Calculator</title>
+    <link rel="stylesheet" href="{% static 'finances/css/revenue_styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Revenue Model Calculator</h1>
+
+        {% if error %}
+            <div class="error-message">
+                <p>{{ error }}</p>
+            </div>
+        {% endif %}
+
+        <form method="post" action="{% url 'finances:revenue_model' %}">
+            {% csrf_token %}
+            <fieldset>
+                <legend>General Inputs</legend>
+                <div>
+                    <label for="total_users">Total Users:</label>
+                    <input type="number" id="total_users" name="total_users" value="{{ values.total_users }}" required step="1">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Interstitial Ad Revenue</legend>
+                <div>
+                    <label for="ad_frequency">Ad Frequency (per user/period):</label>
+                    <input type="number" id="ad_frequency" name="ad_frequency" value="{{ values.ad_frequency }}" required step="any">
+                </div>
+                <div>
+                    <label for="ad_model_type">Ad Model Type:</label>
+                    <select id="ad_model_type" name="ad_model_type">
+                        <option value="ecpm" {% if values.ad_model_type == 'ecpm' %}selected{% endif %}>eCPM (Effective Cost Per Mille)</option>
+                        <option value="rpm" {% if values.ad_model_type == 'rpm' %}selected{% endif %}>RPM (Revenue Per Mille)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="ad_model_value">Ad Model Value (e.g., eCPM rate):</label>
+                    <input type="number" id="ad_model_value" name="ad_model_value" value="{{ values.ad_model_value }}" required step="any">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Premium Subscription Revenue</legend>
+                <div>
+                    <label for="premium_conversion_rate">Premium Conversion Rate (0.0 to 1.0):</label>
+                    <input type="number" id="premium_conversion_rate" name="premium_conversion_rate" value="{{ values.premium_conversion_rate }}" required step="any" min="0" max="1">
+                </div>
+                <div>
+                    <label for="premium_revenue_per_user">Revenue per Premium User (e.g., monthly):</label>
+                    <input type="number" id="premium_revenue_per_user" name="premium_revenue_per_user" value="{{ values.premium_revenue_per_user }}" required step="any">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Affiliate Marketing Revenue</legend>
+                <div>
+                    <label for="affiliate_engagement_rate">Affiliate Engagement Rate (0.0 to 1.0):</label>
+                    <input type="number" id="affiliate_engagement_rate" name="affiliate_engagement_rate" value="{{ values.affiliate_engagement_rate }}" required step="any" min="0" max="1">
+                </div>
+                <div>
+                    <label for="avg_product_value">Average Product Value (Affiliate):</label>
+                    <input type="number" id="avg_product_value" name="avg_product_value" value="{{ values.avg_product_value }}" required step="any">
+                </div>
+                <div>
+                    <label for="affiliate_commission_rate">Affiliate Commission Rate (0.0 to 1.0):</label>
+                    <input type="number" id="affiliate_commission_rate" name="affiliate_commission_rate" value="{{ values.affiliate_commission_rate }}" required step="any" min="0" max="1">
+                </div>
+            </fieldset>
+
+            <button type="submit" class="submit-button">Calculate Revenue</button>
+        </form>
+
+        {% if summary %}
+            <div class="summary-output">
+                <h2>Calculation Summary</h2>
+                <pre>{{ summary }}</pre>
+            </div>
+        {% endif %}
+    </div>
+
+    <script src="{% static 'finances/js/revenue_script.js' %}"></script>
+</body>
+</html> 

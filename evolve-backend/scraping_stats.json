@@ -1,0 +1,9 @@
+{
+  "target_count": 100,
+  "successful_scrapes": 5,
+  "failed_scrapes": 157,
+  "success_rate": 3.0864197530864197,
+  "elapsed_hours": 0.1054015788888889,
+  "start_time": "2025-07-16T17:57:30.958239",
+  "last_success_time": "2025-07-16T17:58:06.430213"
+}

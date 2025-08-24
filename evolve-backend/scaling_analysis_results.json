@@ -1,0 +1,29 @@
+{
+  "optimal_recipe_limit": 1000000,
+  "scaling_analyses": [
+    {
+      "recipe_count": 10000,
+      "estimated_size_gb": 0.03557652235031128,
+      "estimated_memory_mb": 72.8607177734375,
+      "estimated_storage_cost_monthly": 0.003557652235031128,
+      "estimated_compute_cost_monthly": 5,
+      "estimated_scraping_time_hours": 6.944444444444445
+    },
+    {
+      "recipe_count": 100000,
+      "estimated_size_gb": 0.3557652235031128,
+      "estimated_memory_mb": 728.607177734375,
+      "estimated_storage_cost_monthly": 0.03557652235031128,
+      "estimated_compute_cost_monthly": 5,
+      "estimated_scraping_time_hours": 69.44444444444444
+    },
+    {
+      "recipe_count": 1000000,
+      "estimated_size_gb": 3.557652235031128,
+      "estimated_memory_mb": 7286.07177734375,
+      "estimated_storage_cost_monthly": 0.3557652235031128,
+      "estimated_compute_cost_monthly": 7.115304470062256,
+      "estimated_scraping_time_hours": 694.4444444444445
+    }
+  ]
+}

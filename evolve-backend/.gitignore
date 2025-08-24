@@ -1,0 +1,29 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OS-generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+.env
+venv_evolve/
+.env
+__pycache__/
+*/__pycache__/
+__pycache__
+source.jsonl
+openfoodfacts-products.jsonl
+
+# Management commands and test scripts
+api/management/commands/
+nutrition/management/commands/
+fitness/management/commands/
+max/management/commands/

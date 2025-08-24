@@ -1,0 +1,134 @@
+{
+  "analysis_timestamp": "2025-07-16 19:55:27.955395",
+  "railway_tiers": {
+    "starter": {
+      "cpu_cores": 0.5,
+      "memory_gb": 0.5,
+      "storage_gb": 1,
+      "monthly_cost": 5,
+      "max_connections": 10,
+      "request_rate_limit": 60
+    },
+    "basic": {
+      "cpu_cores": 1,
+      "memory_gb": 1,
+      "storage_gb": 3,
+      "monthly_cost": 20,
+      "max_connections": 25,
+      "request_rate_limit": 120
+    },
+    "standard": {
+      "cpu_cores": 2,
+      "memory_gb": 2,
+      "storage_gb": 10,
+      "monthly_cost": 50,
+      "max_connections": 50,
+      "request_rate_limit": 300
+    },
+    "pro": {
+      "cpu_cores": 32,
+      "memory_gb": 32,
+      "storage_gb": 100,
+      "monthly_cost": 100,
+      "max_connections": 100,
+      "request_rate_limit": 600
+    },
+    "business": {
+      "cpu_cores": 8,
+      "memory_gb": 8,
+      "storage_gb": 50,
+      "monthly_cost": 200,
+      "max_connections": 200,
+      "request_rate_limit": 1200
+    }
+  },
+  "recipe_size_estimates": {
+    "recipe_metadata": 500,
+    "ingredients": 1262,
+    "instructions": 1471,
+    "equipment": 28,
+    "indexes": 150
+  },
+  "results": {
+    "1000": {
+      "size_gb": 0.003176741302013397,
+      "memory_gb": 0.1953125,
+      "scraping_days": 0.033068783068783074,
+      "suitable_tiers": [
+        "starter",
+        "basic",
+        "standard",
+        "pro",
+        "business"
+      ],
+      "min_tier_cost": 5,
+      "issues": []
+    },
+    "10000": {
+      "size_gb": 0.03176741302013397,
+      "memory_gb": 1.07421875,
+      "scraping_days": 0.3306878306878307,
+      "suitable_tiers": [
+        "standard",
+        "pro",
+        "business"
+      ],
+      "min_tier_cost": 50,
+      "issues": []
+    },
+    "50000": {
+      "size_gb": 0.15883706510066986,
+      "memory_gb": 4.98046875,
+      "scraping_days": 1.6534391534391535,
+      "suitable_tiers": [
+        "pro",
+        "business"
+      ],
+      "min_tier_cost": 100,
+      "issues": []
+    },
+    "100000": {
+      "size_gb": 0.3176741302013397,
+      "memory_gb": 9.86328125,
+      "scraping_days": 3.306878306878307,
+      "suitable_tiers": [
+        "pro"
+      ],
+      "min_tier_cost": 100,
+      "issues": []
+    },
+    "250000": {
+      "size_gb": 0.7941853255033493,
+      "memory_gb": 24.51171875,
+      "scraping_days": 8.267195767195767,
+      "suitable_tiers": [
+        "pro"
+      ],
+      "min_tier_cost": 100,
+      "issues": []
+    },
+    "500000": {
+      "size_gb": 1.5883706510066986,
+      "memory_gb": 48.92578125,
+      "scraping_days": 16.534391534391535,
+      "suitable_tiers": [],
+      "min_tier_cost": null,
+      "issues": [
+        "Memory: 48.93GB > 8GB",
+        "Tier: business"
+      ]
+    },
+    "1000000": {
+      "size_gb": 3.176741302013397,
+      "memory_gb": 97.75390625,
+      "scraping_days": 33.06878306878307,
+      "suitable_tiers": [],
+      "min_tier_cost": null,
+      "issues": [
+        "Memory: 97.75GB > 8GB",
+        "Tier: business"
+      ]
+    }
+  },
+  "cutoff_point": 500000
+}

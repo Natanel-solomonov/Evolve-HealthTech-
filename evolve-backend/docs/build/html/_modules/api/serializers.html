@@ -1,0 +1,319 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>api.serializers &mdash; Evolve Backend 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Evolve Backend
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Evolve Backend</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">api.serializers</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for api.serializers</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework</span><span class="w"> </span><span class="kn">import</span> <span class="n">serializers</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.models</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Activity</span><span class="p">,</span> <span class="n">Workout</span><span class="p">,</span> <span class="n">Exercise</span><span class="p">,</span> <span class="n">AppUser</span><span class="p">,</span> <span class="n">AppUserInfo</span><span class="p">,</span> <span class="n">ActivityPlan</span><span class="p">,</span>
+    <span class="n">WorkoutExercise</span><span class="p">,</span> <span class="n">AppUserCurrentActivityPlan</span><span class="p">,</span> <span class="n">AppUserActivityPlanHistory</span><span class="p">,</span> <span class="n">AppUserGoals</span><span class="p">,</span>
+    <span class="n">Affiliate</span><span class="p">,</span> <span class="n">AffiliatePromotion</span><span class="p">,</span> <span class="n">AffiliatePromotionDiscountCode</span><span class="p">,</span> <span class="n">AffiliatePromotionRedemption</span>
+<span class="p">)</span>
+
+<span class="c1"># --------------------------------------------------------------------</span>
+<span class="c1"># 1. Define the most basic serializer first so other serializers can nest it.</span>
+<span class="c1"># --------------------------------------------------------------------</span>
+<div class="viewcode-block" id="ExerciseSerializer">
+<a class="viewcode-back" href="../../serializers.html#api.serializers.ExerciseSerializer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ExerciseSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Exercise</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+
+<span class="c1"># --------------------------------------------------------------------</span>
+<span class="c1"># 2. WorkoutExerciseSerializer: Nest the related Exercise using ExerciseSerializer.</span>
+<span class="c1"># --------------------------------------------------------------------</span>
+<div class="viewcode-block" id="WorkoutExerciseSerializer">
+<a class="viewcode-back" href="../../serializers.html#api.serializers.WorkoutExerciseSerializer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">WorkoutExerciseSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="n">exercise</span> <span class="o">=</span> <span class="n">ExerciseSerializer</span><span class="p">(</span><span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># &lt;-- nested representation of Exercise</span>
+    <span class="n">isCompleted</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># NEW: Ensure key is always present</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">WorkoutExercise</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+
+<span class="c1"># --------------------------------------------------------------------</span>
+<span class="c1"># 3. WorkoutSerializer: Replace the default &quot;exercises&quot; field with a nested field</span>
+<span class="c1"># using the through model (workoutexercise_set) to capture extra details.</span>
+<span class="c1"># --------------------------------------------------------------------</span>
+<div class="viewcode-block" id="WorkoutSerializer">
+<a class="viewcode-back" href="../../serializers.html#api.serializers.WorkoutSerializer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">WorkoutSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="c1"># Use the reverse relation &quot;workoutexercise_set&quot; to show full details</span>
+    <span class="n">workoutexercises</span> <span class="o">=</span> <span class="n">WorkoutExerciseSerializer</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s1">&#39;workoutexercise_set&#39;</span><span class="p">)</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Workout</span>
+        <span class="c1"># Exclude the original &quot;exercises&quot; field and use our nested workoutexercises instead.</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;duration&#39;</span><span class="p">,</span> <span class="s1">&#39;created_at&#39;</span><span class="p">,</span> <span class="s1">&#39;updated_at&#39;</span><span class="p">,</span> <span class="s1">&#39;workoutexercises&#39;</span><span class="p">]</span></div>
+
+
+
+<span class="c1"># --------------------------------------------------------------------</span>
+<span class="c1"># 4. ActivitySerializer: Nest the foreign key &quot;associated_workout&quot; using the updated WorkoutSerializer.</span>
+<span class="c1"># --------------------------------------------------------------------</span>
+<div class="viewcode-block" id="ActivitySerializer">
+<a class="viewcode-back" href="../../serializers.html#api.serializers.ActivitySerializer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ActivitySerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="n">associated_workout</span> <span class="o">=</span> <span class="n">WorkoutSerializer</span><span class="p">(</span><span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># &lt;-- nested full workout details</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Activity</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+
+<span class="c1"># --------------------------------------------------------------------</span>
+<span class="c1"># 5. ActivityPlanSerializer: (Remains largely the same, already nesting ActivitySerializer.)</span>
+<span class="c1"># --------------------------------------------------------------------</span>
+<div class="viewcode-block" id="ActivityPlanSerializer">
+<a class="viewcode-back" href="../../serializers.html#api.serializers.ActivityPlanSerializer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ActivityPlanSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="c1"># Nesting ActivitySerializer in each day-field to return full details</span>
+    <span class="n">monday_activities</span>    <span class="o">=</span> <span class="n">ActivitySerializer</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">tuesday_activities</span>   <span class="o">=</span> <span class="n">ActivitySerializer</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">wednesday_activities</span> <span class="o">=</span> <span class="n">ActivitySerializer</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">thursday_activities</span>  <span class="o">=</span> <span class="n">ActivitySerializer</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">friday_activities</span>    <span class="o">=</span> <span class="n">ActivitySerializer</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">saturday_activities</span>  <span class="o">=</span> <span class="n">ActivitySerializer</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">sunday_activities</span>    <span class="o">=</span> <span class="n">ActivitySerializer</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">ActivityPlan</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+
+<span class="c1"># --------------------------------------------------------------------</span>
+<span class="c1"># 6. AppUserInfoSerializer: (Remains the same.)</span>
+<span class="c1"># --------------------------------------------------------------------</span>
+<div class="viewcode-block" id="AppUserInfoSerializer">
+<a class="viewcode-back" href="../../serializers.html#api.serializers.AppUserInfoSerializer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AppUserInfoSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s2">&quot;user.phone&quot;</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="k">class</span><span class="w"> </span><span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">AppUserInfo</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+
+<span class="c1"># --------------------------------------------------------------------</span>
+<span class="c1"># 7. AppUserActivityPlanHistorySerializer: Nest the many-to-many field using ActivityPlanSerializer.</span>
+<span class="c1"># --------------------------------------------------------------------</span>
+<div class="viewcode-block" id="AppUserActivityPlanHistorySerializer">
+<a class="viewcode-back" href="../../serializers.html#api.serializers.AppUserActivityPlanHistorySerializer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AppUserActivityPlanHistorySerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s2">&quot;user.phone&quot;</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">completed_activity_plans</span> <span class="o">=</span> <span class="n">ActivityPlanSerializer</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">AppUserActivityPlanHistory</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+
+<span class="c1"># --------------------------------------------------------------------</span>
+<span class="c1"># 8. AppUserCurrentActivityPlanSerializer: Nest the related ActivityPlan.</span>
+<span class="c1"># (We leave the &quot;user&quot; field as is to avoid circular references.)</span>
+<span class="c1"># --------------------------------------------------------------------</span>
+<div class="viewcode-block" id="AppUserCurrentActivityPlanSerializer">
+<a class="viewcode-back" href="../../serializers.html#api.serializers.AppUserCurrentActivityPlanSerializer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AppUserCurrentActivityPlanSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s2">&quot;user.phone&quot;</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">activity_plan</span> <span class="o">=</span> <span class="n">ActivityPlanSerializer</span><span class="p">(</span><span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">AppUserCurrentActivityPlan</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+
+<span class="c1"># --------------------------------------------------------------------</span>
+<span class="c1"># 9. AppUserGoalsSerializer: (No nested relations here, but you could nest user if desired.)</span>
+<span class="c1"># --------------------------------------------------------------------</span>
+<div class="viewcode-block" id="AppUserGoalsSerializer">
+<a class="viewcode-back" href="../../serializers.html#api.serializers.AppUserGoalsSerializer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AppUserGoalsSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s2">&quot;user.phone&quot;</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="k">class</span><span class="w"> </span><span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">AppUserGoals</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+
+<span class="c1"># --------------------------------------------------------------------</span>
+<span class="c1"># 10. AppUserSerializer: Nest one-to-one and reverse relationships so that user data</span>
+<span class="c1"># includes full nested details.</span>
+<span class="c1"># --------------------------------------------------------------------</span>
+<div class="viewcode-block" id="AppUserSerializer">
+<a class="viewcode-back" href="../../serializers.html#api.serializers.AppUserSerializer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AppUserSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">AppUserInfoSerializer</span><span class="p">(</span><span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">current_activity_plan</span> <span class="o">=</span> <span class="n">AppUserCurrentActivityPlanSerializer</span><span class="p">(</span><span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">activity_plan_history</span> <span class="o">=</span> <span class="n">AppUserActivityPlanHistorySerializer</span><span class="p">(</span><span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">goals</span> <span class="o">=</span> <span class="n">AppUserGoalsSerializer</span><span class="p">(</span><span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">AppUser</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+
+<span class="c1"># --------------------------------------------------------------------</span>
+<span class="c1"># 11. Affiliate Serializers: New affiliate related serializers.</span>
+<span class="c1"># --------------------------------------------------------------------</span>
+<div class="viewcode-block" id="AffiliateSerializer">
+<a class="viewcode-back" href="../../serializers.html#api.serializers.AffiliateSerializer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AffiliateSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Affiliate</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+
+<div class="viewcode-block" id="AffiliatePromotionSerializer">
+<a class="viewcode-back" href="../../serializers.html#api.serializers.AffiliatePromotionSerializer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AffiliatePromotionSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="c1"># Read: provide nested Affiliate details.</span>
+    <span class="n">affiliate</span> <span class="o">=</span> <span class="n">AffiliateSerializer</span><span class="p">(</span><span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Write: allow setting the affiliate by its primary key.</span>
+    <span class="n">affiliate_id</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">PrimaryKeyRelatedField</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;affiliate&#39;</span><span class="p">,</span> <span class="n">queryset</span><span class="o">=</span><span class="n">Affiliate</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span> <span class="n">write_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">AffiliatePromotion</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;affiliate&#39;</span><span class="p">,</span> <span class="s1">&#39;affiliate_id&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;max_uses&#39;</span><span class="p">,</span> <span class="s1">&#39;uses_remaining&#39;</span><span class="p">,</span> <span class="s1">&#39;start_date&#39;</span><span class="p">,</span> <span class="s1">&#39;end_date&#39;</span><span class="p">,</span> <span class="s1">&#39;is_active&#39;</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="AffiliatePromotionDiscountCodeSerializer">
+<a class="viewcode-back" href="../../serializers.html#api.serializers.AffiliatePromotionDiscountCodeSerializer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AffiliatePromotionDiscountCodeSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="c1"># Read: provide nested representation of the promotion.</span>
+    <span class="n">affiliate_promotion</span> <span class="o">=</span> <span class="n">AffiliatePromotionSerializer</span><span class="p">(</span><span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Write: allow setting the promotion by its primary key.</span>
+    <span class="n">affiliate_promotion_id</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">PrimaryKeyRelatedField</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;affiliate_promotion&#39;</span><span class="p">,</span> <span class="n">queryset</span><span class="o">=</span><span class="n">AffiliatePromotion</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span> <span class="n">write_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="k">class</span><span class="w"> </span><span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">AffiliatePromotionDiscountCode</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;code&#39;</span><span class="p">,</span> <span class="s1">&#39;affiliate_promotion&#39;</span><span class="p">,</span> <span class="s1">&#39;affiliate_promotion_id&#39;</span><span class="p">,</span> <span class="s1">&#39;is_used&#39;</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="AffiliatePromotionRedemptionSerializer">
+<a class="viewcode-back" href="../../serializers.html#api.serializers.AffiliatePromotionRedemptionSerializer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AffiliatePromotionRedemptionSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="c1"># Read: provide nested promotion details.</span>
+    <span class="n">promotion</span> <span class="o">=</span> <span class="n">AffiliatePromotionSerializer</span><span class="p">(</span><span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Write: allow setting the promotion with its primary key.</span>
+    <span class="n">promotion_id</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">PrimaryKeyRelatedField</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;promotion&#39;</span><span class="p">,</span> <span class="n">queryset</span><span class="o">=</span><span class="n">AffiliatePromotion</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span> <span class="n">write_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Read: represent the user by their phone number.</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;user.phone&#39;</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Write: allow setting the user by its primary key.</span>
+    <span class="n">user_id</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">PrimaryKeyRelatedField</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="n">queryset</span><span class="o">=</span><span class="n">AppUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span> <span class="n">write_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">AffiliatePromotionRedemption</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;promotion&#39;</span><span class="p">,</span> <span class="s1">&#39;promotion_id&#39;</span><span class="p">,</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="s1">&#39;redeemed_at&#39;</span><span class="p">]</span></div>
+
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Your Name.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

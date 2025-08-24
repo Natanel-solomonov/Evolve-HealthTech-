@@ -1,0 +1,181 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{% static "admin/css/login.css" %}">
+{{ block.super }}
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+body.login {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(100, 100, 100, 0.7)), url('{% static "admin/img/nyc-background.jpeg" %}') center/cover no-repeat fixed;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 10vh;
+}
+
+.login #container {
+  background: rgba(0, 0, 0, 0.65);
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+#header {
+  display: none;
+}
+
+.login #content {
+  padding: 30px 45px;
+}
+
+.login-logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.login-logo img {
+  max-width: 80px;
+  height: auto;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+/* Label styling without colons, white text */
+.form-row label {
+  display: none;
+}
+
+/* Placeholder styling */
+::placeholder {
+  color: #666;
+  opacity: 1;
+}
+
+/* Adjust spacing without labels */
+.form-row {
+  margin-bottom: 12px;
+}
+
+/* Off-white input boxes with black text */
+.form-row input {
+  text-align: left;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: #000;
+  background-color: #f5f5f0;
+  margin-top: 0;
+  height: 38px;
+}
+
+/* Remove highlight on focused input */
+.form-row input:focus {
+  outline: none;
+}
+
+/* Hide the colon */
+label::after {
+  content: "" !important;
+  display: none !important;
+}
+
+/* Force Django to not display colons */
+.required label:after, label.required:after {
+  content: "" !important;
+  display: none !important;
+}
+
+/* Error message styling */
+.errornote {
+  background-color: rgba(220, 53, 69, 0.7);
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+/* Off-white button with black text */
+.submit-row {
+  margin-top: 20px;
+}
+
+/* Make the button exactly like the input boxes */
+.submit-row input {
+  text-align: center;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: #000;
+  background-color: #f5f5f0;
+  font-weight: normal;
+  font-size: inherit;
+  font-family: inherit;
+  height: 38px;
+  cursor: pointer;
+}
+
+.submit-row input:hover {
+  background: #e0e0e0;
+}
+</style>
+{% endblock %}
+
+{% block bodyclass %}login{% endblock %}
+
+{% block usertools %}{% endblock %}
+{% block nav-global %}{% endblock %}
+{% block breadcrumbs %}{% endblock %}
+{% block content_title %}{% endblock %}
+{% block nav-sidebar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block branding %}{% endblock %}
+
+{% block content %}
+{% if form.errors and not form.non_field_errors %}
+<p class="errornote">
+{% if form.errors.items|length == 1 %}{% translate "Please correct the error below." %}{% else %}{% translate "Please correct the errors below." %}{% endif %}
+</p>
+{% endif %}
+
+{% if form.non_field_errors %}
+{% for error in form.non_field_errors %}
+<p class="errornote">{{ error }}</p>
+{% endfor %}
+{% endif %}
+
+<div id="content-main">
+  <div class="login-logo">
+    <img src="{% static 'admin/img/logo-trans.png' %}" alt="Evolve Logo">
+  </div>
+  <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+    <div class="form-row">
+      {{ form.username.errors }}
+      <input type="text" name="username" autofocus autocapitalize="none" autocomplete="off" maxlength="150" required id="id_username" placeholder="+11234567890">
+    </div>
+    <div class="form-row">
+      {{ form.password.errors }}
+      <input type="password" name="password" autocomplete="off" required id="id_password" placeholder="Password">
+      <input type="hidden" name="next" value="{{ next }}" autocomplete="off">
+    </div>
+    <div class="submit-row">
+      <input type="submit" value="{% translate 'Log in' %}">
+    </div>
+  </form>
+</div>
+{% endblock %} 

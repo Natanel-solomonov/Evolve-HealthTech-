@@ -1,0 +1,651 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh; /* Use vh for full viewport height */
+  width: 100vw;   /* Use vw for full viewport width */
+  overflow: hidden; /* Prevent all scrolling on html/body */
+  background-color: #ffffff; /* Base white background for the page */
+  /* Prevent text selection/highlighting */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* Internet Explorer/Edge */
+  user-select: none;         /* Standard */
+}
+
+.background-container {
+  width: 100vw; /* Use vw for full viewport width */
+  height: 100vh; /* Use vh for full viewport height */
+  position: fixed; /* Ensure it covers the whole viewport */
+  top: 0;
+  left: 0;
+  /* The gradient is layered on top of the body's white background */
+  /* If the gradient doesn't fully cover, or fades to transparent, white will show through */
+  background-image: 
+    /* New gradient, top-right of center */
+    radial-gradient(
+      ellipse 180% 120% at 60% 40%, /* Origin: top-right of center */
+      rgba(253, 138, 138, 0.2) 0%,  /* Fitness */
+      rgba(158, 161, 212, 0.2) 25%,   /* Sleep */
+      rgba(94, 177, 212, 0.1) 45%,  /* Mind */
+      rgba(255, 255, 255, 0) 65%   /* Fade to transparent */
+    ),
+    /* Existing gradient, bottom-left of center */
+    radial-gradient(
+      ellipse 180% 120% at 40% 60%, /* Origin: bottom-left of center */
+      rgba(253, 138, 138, 0.2) 0%,  /* Fitness */
+      rgba(158, 161, 212, 0.2) 25%, /* Sleep */
+      rgba(94, 177, 212, 0.1) 45%,/* Mind */
+      rgba(255, 255, 255, 0) 65%   /* Fade to transparent */
+    );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center; /* Center text within the text-content block */
+}
+
+.text-content {
+  /* Optional: Add a max-width to the text block if needed */
+  /* max-width: 600px; */
+  color: #333; /* Default text color */
+  max-height: 100vh; /* Allow it to take full viewport height */
+  overflow-y: auto;  /* Enable vertical scrollbar if content overflows */
+  padding-top: calc(50px + env(safe-area-inset-top)); /* Add space at the top, respecting safe area */
+  padding-bottom: calc(100px + env(safe-area-inset-bottom)); /* Increased from 50px, add space at the bottom, respecting safe area */
+  padding-left: calc(20px + env(safe-area-inset-left)); /* Add base horizontal padding and respect safe area */
+  padding-right: calc(20px + env(safe-area-inset-right)); /* Add base horizontal padding and respect safe area */
+  box-sizing: border-box; /* Ensure padding is included in height calculation */
+  width: 100%; /* Ensure it utilizes available width for centering */
+  /* The following properties are to ensure items inside .text-content are centered if they don't span full width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* Hide scrollbar for WebKit browsers (Chrome, Safari, Edge) */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for Firefox */
+  scrollbar-width: none;
+  /* Hide scrollbar for IE and Edge (older versions) */
+  -ms-overflow-style: none;  
+}
+
+.logo-image {
+  width: 50px; /* Adjust as needed */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 15px;
+}
+
+h1 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: clamp(2.2rem, 1.5rem + 6.5vw, 6.5rem); /* Dynamically scales font size, aiming for larger */
+  font-weight: 600;
+  color: #222; /* Darker color for heading */
+  margin-top: 0;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+/* Responsive H1 titles for waitlist.html */
+.mobile-title {
+  display: none; /* Hidden by default */
+}
+
+/* Ensure desktop-title respects general h1 styling display or is explicitly block */
+.desktop-title {
+  /* display: block; /* h1 is block by default, so this might not be strictly necessary */
+}
+
+@media (max-width: 768px) { /* Breakpoint for phones and smaller tablets */
+  .desktop-title {
+    display: none;
+  }
+  .mobile-title {
+    display: block; /* Show mobile title */
+    /* Ensure it inherits general h1 styles or add them here if specific overrides are needed */
+  }
+
+  .input-form {
+    width: 90%; /* Adjust width to create side margins */
+    margin-left: auto; /* Center the form */
+    margin-right: auto; /* Center the form */
+    /* margin-top is inherited from the global .input-form style and doesn't need to be restated */
+  }
+
+  /* Wider dialog on mobile */
+  .success-dialog {
+    width: 90vw;
+    padding: 15px; /* Adjust padding if needed for more content */
+  }
+}
+
+.description {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 0.9rem;
+  color: #555; /* Medium grey for description */
+  line-height: 1.6;
+  max-width: 450px; /* Limit width for better readability */
+  margin-left: auto; /* Center the block if max-width is active */
+  margin-right: auto; /* Center the block if max-width is active */
+}
+
+.input-form {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Align items vertically if they have different heights */
+}
+
+.form-input {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 0.9rem;
+  padding: 12px 15px;
+  border: 1px solid #ddd; /* Light grey border */
+  border-radius: 20px; /* Rounded corners */
+  margin-right: 10px;
+  width: 250px; /* Adjust as needed */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Subtle shadow like in the image */
+}
+
+.form-input:focus {
+  outline: none; /* Remove default focus outline */
+  /* Optional: Add a custom focus style, like a slightly different border or shadow */
+  /* border-color: #aaa; */ 
+  /* box-shadow: 0 0 5px rgba(0,0,0,0.1); */
+}
+
+.form-input::placeholder {
+  color: #aaa;
+}
+
+.waitlist-button {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 12px 20px;
+  background-color: #333; /* Dark grey/black */
+  color: white;
+  border: none;
+  border-radius: 20px; /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow */
+}
+
+.waitlist-button:hover {
+  background-color: #555; /* Slightly lighter on hover */
+}
+
+/* Flexbox behavior for items directly inside .input-form */
+.input-form > .form-input {
+    flex-grow: 1;  /* Allow input to take up remaining space */
+    flex-shrink: 1; /* Allow input to shrink */
+    /* The existing width on .form-input (e.g., 250px) will act as an initial flex-basis */
+    min-width: 150px; /* Prevent input from becoming too small, adjust as needed */
+}
+
+.input-form > .waitlist-button {
+    flex-shrink: 0;     /* Prevent button from shrinking */
+    white-space: nowrap; /* Keep button text on one line */
+}
+
+.position-label {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.2rem; /* Adjust size as needed */
+  color: #444; /* Slightly darker than description perhaps */
+  margin-top: 20px; /* Space above the label if needed after logo */
+  margin-bottom: 5px; /* Space between label and number */
+}
+
+.position-number {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 6rem; /* Extra large text */
+  font-weight: 700; /* Bold */
+  color: #111; /* Very dark color */
+  line-height: 1.1;
+  margin-top: 0;
+}
+
+.referral-card {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  padding: 32px 28px; /* Increased padding for more spacious look */
+  margin-top: 40px;
+  max-width: 400px; /* Adjust as needed */
+  width: 100%; /* Make cards take full available width */
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+  text-align: left; /* Override text-content center alignment */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.card-top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px; /* Reduced from 15px */
+}
+
+.card-icon-container {
+  background-color: #1A1A1A; /* Dark background for icon */
+  color: white; /* Fallback for text-based icons, SVG fill is separate */
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+/* SVGs inside the icon container will use their own fill, but size can be managed here if needed */
+.card-icon-container svg {
+  /* width: 24px; /* Ensure SVGs are sized consistently if not set inline */
+  /* height: 24px; */
+}
+
+.card-positions-info {
+  text-align: right;
+  position: relative;
+  bottom: 10px;
+}
+
+.positions-bonus {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+  background-color: #f0f0f0; /* Light grey pill background */
+  padding: 4px 10px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.positions-condition {
+  font-size: 0.7rem;
+  color: #888;
+  text-transform: uppercase;
+  position: relative;
+  bottom: 10px;
+  right: 10px;
+}
+
+.card-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  
+  
+  color: #222;
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+/* Adjust margin-top for the title specifically in the main referral card */
+.referral-card:not(.school-card):not(.name-card) .card-title {
+  margin-top: -35px; /* Adjust as needed */
+}
+
+.referral-link-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f7f7f7;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.referral-link-text {
+  font-family: "SF Mono", "Menlo", "Monaco", monospace;
+  color: #444;
+  font-size: 0.9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.copy-icon {
+  font-size: 1.3rem;
+  color: #555;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.card-bottom-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Use flex-start for better alignment if text wraps */
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.unlock-info {
+  flex-basis: 60%; /* Give more space to this text */
+}
+
+.unlock-info strong {
+  color: #111;
+  font-weight: 600;
+}
+
+.friends-invited-container {
+  text-align: right;
+  flex-basis: 35%; /* Adjust as needed */
+}
+
+.friends-invited-label {
+  font-size: 0.7rem;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.friends-invited-count {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111;
+  margin-top: -5px; /* Adjust for tighter spacing */
+  line-height: 1; /* May also help reduce space */
+}
+
+/* School Card Specific Styles */
+.school-card .card-title {
+  margin-bottom: 20px; /* More space before the input form */
+}
+
+.school-form {
+  margin-top: 0; /* input-form has margin-top: 30px, override if needed */
+}
+
+.school-input {
+  border-radius: 8px; /* Match image more closely */
+  flex-grow: 1; /* Allow input to take more space */
+  margin-right: 8px;
+}
+
+.school-button {
+  border-radius: 8px; /* Match image more closely */
+  padding: 12px 15px; /* Slightly less padding than default waitlist button if needed */
+  font-weight: 600; /* Bolder like in image */
+}
+
+.briefcase-icon {
+  /* Add styles for the briefcase icon if needed */
+}
+
+/* Styles for school autocomplete */
+.autocomplete-container {
+    position: relative;
+}
+.autocomplete-suggestions {
+    position: absolute;
+    border: 1px solid #ddd;
+    border-top: none;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    max-height: 150px;
+    overflow-y: auto;
+}
+.autocomplete-suggestions div {
+    padding: 10px;
+    cursor: pointer;
+    color: black; /* Ensure text is visible on white background */
+}
+.autocomplete-suggestions div:hover {
+    background-color: #e9e9e9;
+}
+.form-input.school-input { /* Ensure input is not transparent */
+    background-color: white;
+    color: black;
+}
+
+/* Success Dialog Styles */
+.success-dialog {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 1000; /* Ensure it's on top */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0s linear 0.5s, top 0.5s ease-in-out;
+}
+
+.success-dialog.show {
+    opacity: 1;
+    visibility: visible;
+    top: 40px; /* Animate in from a slightly higher position */
+    transition: opacity 0.5s ease-in-out, visibility 0s linear 0s, top 0.5s ease-in-out;
+}
+
+.success-dialog.fade-out {
+    opacity: 0;
+    top: 20px;
+    transition: opacity 0.5s ease-in-out, visibility 0s linear 0.5s, top 0.5s ease-in-out;
+}
+
+/* Name input and button styles to match school form */
+.name-input {
+  border-radius: 8px; /* Match school-input */
+  width: calc(50% - 5px); /* Each input is half of parent width, minus half the gap */
+  margin-left: 0;     /* Ensure no inherited left margin interferes */
+  margin-right: 0;    /* Override .form-input margin. Parent's gap handles spacing. */
+  box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+}
+
+.name-button {
+  border-radius: 8px;     /* Match school-button */
+  padding: 12px 15px;   /* Match school-button */
+  font-weight: 600;     /* Match school-button */
+}
+
+/* Layout adjustments for the name form */
+.input-form.name-form {
+    flex-direction: column;
+    /* align-items: center; is inherited from .input-form, centering items horizontally */
+}
+
+/* Ensure the row of name inputs takes available width */
+.input-form.name-form > div:first-child {
+    width: 100%;
+    /* display: flex; gap: 10px; margin-bottom: 10px; are already inline */
+}
+
+.no-break-phrase {
+  white-space: nowrap;
+}
+
+/* Home Page Styles */
+.home-background {
+    background-image: url('background.webp');
+    background-size: cover;
+    background-position: center;
+    background-color: #F8F7F4; /* Fallback color */
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    position: relative;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 60px;
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.home-logo {
+    height: 44px;
+}
+
+.home-nav a {
+    color: #3C3C3C;
+    text-decoration: none;
+    margin-left: 40px;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.home-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 60px;
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+.home-content-left {
+    max-width: 480px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.purpose-badge {
+    display: inline-block;
+    background-color: #ECEAE5;
+    border: 1px solid #DDDBD7;
+    border-radius: 15px;
+    padding: 6px 15px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 25px;
+    color: #555;
+}
+
+.home-content-left h1 {
+    font-size: 3.8rem;
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 25px;
+    color: #1A1A1A;
+}
+
+.home-content-left p {
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+.home-join-button {
+    background-color: #F8F7F4;
+    color: #1A1A1A;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 30px;
+    border: 1px solid #DDDBD7;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s;
+    display: inline-block;
+}
+
+.home-join-button:hover {
+    background-color: #fff;
+    border-color: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.home-content-right {
+    flex-shrink: 0;
+    margin-left: 40px;
+}
+
+.home-image-card {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    animation: fadeIn 1s 0.2s ease-in-out backwards;
+}
+
+.home-image-card img {
+    border-radius: 16px;
+    display: block;
+}
+
+@media (max-width: 1100px) {
+    .home-content-left h1 {
+        font-size: 3rem;
+    }
+    .home-image-card img {
+        width: 450px;
+        height: auto;
+    }
+}
+
+@media (max-width: 960px) {
+    .home-main {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px 40px;
+    }
+
+    .home-content-left {
+        max-width: 600px;
+        margin-bottom: 50px;
+    }
+
+    .home-content-right {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .home-header {
+        flex-direction: column;
+        padding: 20px 20px;
+        gap: 15px;
+    }
+    .home-nav a {
+        margin: 0 15px;
+    }
+    .home-main {
+        padding: 20px;
+    }
+    .home-content-left h1 {
+        font-size: 2.5rem;
+    }
+    .home-content-left p {
+        font-size: 1.05rem;
+    }
+    .home-image-card {
+        padding: 12px;
+    }
+    .home-image-card img {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+    }
+}
+

@@ -1,0 +1,18 @@
+URLs
+====
+
+API URLs
+--------
+
+.. automodule:: api.urls
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Website URLs
+-----------
+
+.. automodule:: website.urls
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,10 @@
+Serializers
+==========
+
+API Serializers
+--------------
+
+.. automodule:: api.serializers
+   :members:
+   :undoc-members:
+   :show-inheritance:

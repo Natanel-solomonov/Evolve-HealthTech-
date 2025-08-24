@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <title>Evolve: Intelligent Wellness</title>
+    <link rel="icon" href="{% static 'evolve logo trans.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+            {% if forloop.first %}
+    <div id="successDialog" class="success-dialog" data-message="{{ message }}" data-message-tags="{{ message.tags }}"></div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+    <div id="successDialog" class="success-dialog"></div>
+    {% endif %}
+
+    <div class="background-container" style="background-image: url('{% static 'background.webp' %}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <!-- Overlay to make text more visible -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.3); z-index: 1;"></div>
+        
+        <div class="text-content" style="position: relative; z-index: 2; color: white;">
+            <img src="{% static 'evolve logo trans.png' %}" alt="Evolve Logo" class="logo-image">
+            <p class="position-label" style="color: white;">Your Position</p>
+            <div class="position-number" style="color: white;">{{ position|floatformat:"0g" }}</div>
+
+            <div class="referral-card">
+                <div class="card-top-section">
+                    <div class="card-icon-container">
+                        <svg width="24" height="24" viewBox="-1.6 -2.65 35.2 36.3" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="white" preserveAspectRatio="xMidYMid meet">
+                            <g transform="translate(-206 -310)">
+                                <path fill="white" d="M224,330 L227,330 L227,316 L224,316 L224,330 Z M236,310 L229,314.667 L229,331.333 L236,336 C237.104,336 238,335.104 238,334 L238,312 C238,310.896 237.104,310 236,310 L236,310 Z M206,323 C206,326.733 208.561,329.148 212.019,329.81 L212,330 L212,338 C212,339.104 212.896,340 214,340 L217,340 C218.104,340 219,339.104 219,338 L219,330 L222,330 L222,316 L214,316 C209.582,316 206,318.582 206,323 L206,323 Z" id="megaphone"></path>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="card-positions-info">
+                        <p class="positions-bonus">+5 POSITIONS</p>
+                        <p class="positions-condition">PER SIGN UP</p>
+                    </div>
+                </div>
+                <h3 class="card-title">Invite a Friend</h3>
+                <div class="referral-link-container">
+                    <span class="referral-link-text">{{ domain }}/r/{{ user.referral_link }}</span>
+                    <span class="copy-icon" data-clipboard-text="{{ domain }}/r/{{ user.referral_link }}">📋</span>
+                </div>
+                <div class="card-bottom-section">
+                    <p class="unlock-info">Invite friends to get bumped up the waitlist. For every friend you refer, we'll bump you up 5 positions. All they have to do is sign up with the link above.</p>
+                    <div class="friends-invited-container">
+                        <p class="friends-invited-label">FRIENDS INVITED:</p>
+                        <p class="friends-invited-count">{{ friends_invited_count }}</p>
+                    </div>
+                </div>
+            </div>
+
+            {% if not user.school %}
+            <div class="referral-card school-card">
+                <div class="card-top-section">
+                    <div class="card-icon-container">
+                        <svg width="24" height="24" viewBox="0.65 4.65 22.7 22.7" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="white" preserveAspectRatio="xMidYMid meet">
+                            <path fill="white" d="M12.188 7.844l12.188 4.875-12.188 4.844-9.094-3.625c-0.563 0.469-0.969 1.219-1.031 2.063h0.219c0.25 0 0.438 0.188 0.438 0.438v1.156c0 0.25-0.188 0.438-0.438 0.438h-0.156l0.594 6.063c0.031 0.25-0.156 0.469-0.406 0.469h-1.094c-0.25 0-0.438-0.219-0.438-0.469l0.625-6.063h-0.156c-0.25 0-0.469-0.188-0.469-0.438v-1.156c0-0.25 0.219-0.438 0.469-0.438h0.344c0.063-0.906 0.469-1.688 1.031-2.25l-2.625-1.031zM11.844 18.438l0.344 0.125 0.344-0.125 6.688-2.688 0.5 5.531c0.031 0.375-0.219 0.531-0.563 0.375l-2.625-1.344c-0.344-0.188-0.906-0.156-1.219 0.031l-2.531 1.438c-0.313 0.188-0.875 0.188-1.188 0l-2.531-1.438c-0.313-0.188-0.875-0.219-1.188-0.031l-2.656 1.344c-0.344 0.188-0.594 0-0.563-0.375l0.5-5.531z"></path>
+                        </svg>
+                    </div>
+                    <div class="card-positions-info">
+                        <p class="positions-bonus">+1 POSITION</p>
+                    </div>
+                </div>
+                <h3 class="card-title">What school do you go to?</h3>
+                <form method="POST" action="{% url 'update_school' user.id %}" id="schoolForm">
+                    {% csrf_token %}
+                    <div class="input-form school-form autocomplete-container">
+                        <input type="text" name="school_name" placeholder="School name" 
+                               class="form-input school-input" 
+                               value="{{ user.school.name|default:'' }}" 
+                               autocomplete="off" 
+                               id="schoolNameInput"
+                               data-autocomplete-url="{% url 'university_autocomplete' %}"
+                               data-initial-school-name="{{ user.school.name|default:'' }}">
+                        <div class="autocomplete-suggestions" id="schoolSuggestions"></div>
+                        <button type="submit" class="waitlist-button school-button" id="confirmSchoolButton">CONFIRM</button>
+                    </div>
+                </form>
+            </div>
+            {% endif %}
+
+            {% if not user.first_name or not user.last_name %}
+            <div class="referral-card name-card">
+                <div class="card-top-section">
+                    <div class="card-icon-container">
+                        <svg class="person-icon" width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="12" cy="8" r="4"/>
+                          <path d="M4 20c0-2.2 3.6-4 8-4s8 1.8 8 4v1H4v-1z"/>
+                        </svg>
+                    </div>
+                    <div class="card-positions-info">
+                        <p class="positions-bonus">+1 POSITION</p>
+                    </div>
+                </div>
+                <h3 class="card-title">What is your name?</h3>
+                <form method="POST" action="{% url 'update_full_name' user.id %}">
+                    {% csrf_token %}
+                    <div class="input-form name-form">
+                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <input type="text" name="user_first_name" placeholder="First Name" class="form-input name-input" value="{{ user.first_name|default:'' }}" required>
+                            <input type="text" name="user_last_name" placeholder="Last Name" class="form-input name-input" value="{{ user.last_name|default:'' }}" required>
+                        </div>
+                        <button type="submit" class="waitlist-button name-button">CONFIRM</button>
+                    </div>
+                </form>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+    <script src="{% static 'script.min.js' %}"></script>
+</body>
+</html> 

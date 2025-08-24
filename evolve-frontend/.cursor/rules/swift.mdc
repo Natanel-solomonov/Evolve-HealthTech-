@@ -1,0 +1,23 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Always use the latest Swift and SwiftUI APIs. Replace deprecated patterns (e.g., NavigationView) with current best practices (e.g., NavigationStack).
+Use async/await for concurrency; avoid completion handlers.
+
+Write clear, readable Swift code. No placeholders or unfinished sections. Fully implement all requested features.
+
+Use MVVM architecture for all SwiftUI views. Favor structs and protocol extensions.
+
+Follow Apple naming conventions: camelCase for variables/functions, PascalCase for types. Prefix booleans with is/has/should.
+
+All code must conform to SwiftLint rules before merging.
+
+Manage state using @State, @StateObject, and Combine. Avoid global state.
+
+Never hardcode sensitive information. Use Keychain for secure storage.
+
+All UI must support accessibility, dynamic type, and dark mode.
+
+Deprecation notice: 'onChange(of:perform:)' was deprecated in iOS 17.0: Use `onChange` with a two or zero parameter action closure instead.

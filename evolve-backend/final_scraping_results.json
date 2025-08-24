@@ -1,0 +1,131 @@
+{
+  "stats": {
+    "total_processed": 20,
+    "successful": 20,
+    "failed": 0,
+    "start_time": "2025-07-16 18:41:19.234751",
+    "errors": []
+  },
+  "results": [
+    {
+      "url": "https://www.allrecipes.com/recipe/100008/homemade-pickled-ginger-gari/",
+      "status": "success",
+      "recipe_id": "4dd13e33-5b55-45de-89a0-2b8c769a2783",
+      "title": "Homemade Pickled Ginger (Gari)"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/10001/chocolate-pizzelles/",
+      "status": "success",
+      "recipe_id": "3add2ad8-293a-4a99-bc11-8d9805bb6ef5",
+      "title": "Chocolate Pizzelles"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/100011/pork-and-black-bean-stew/",
+      "status": "success",
+      "recipe_id": "5a10ac01-5d53-4d60-9d78-b6135e1f6814",
+      "title": "Pork and Black Bean Stew"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/10003/cookie-press-shortbread/",
+      "status": "success",
+      "recipe_id": "5a69bdad-521d-49e1-99ee-24a97ab9d41e",
+      "title": "Cookie Press Shortbread"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/100056/jalapeno-poppers-of-champions/",
+      "status": "success",
+      "recipe_id": "168a5070-d05a-46e4-b64e-c974dc6bca75",
+      "title": "Jalapeno Poppers of Champions"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/100072/lobster-colorado/",
+      "status": "success",
+      "recipe_id": "e0edcc99-63b0-451d-8d4b-336c6896b6dd",
+      "title": "Lobster Colorado"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/10008/praline-cookies/",
+      "status": "success",
+      "recipe_id": "8e12e433-278f-4583-94b7-02c599bfc7f6",
+      "title": "Praline Cookies"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/100089/frosted-grapes/",
+      "status": "success",
+      "recipe_id": "fb78ad52-3aec-4672-827d-5cd4575b627c",
+      "title": "Frosted Grapes"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/100094/polish-sloppy-joes/",
+      "status": "success",
+      "recipe_id": "fdbac033-93fa-4a14-830d-aa686ab1a461",
+      "title": "Polish Sloppy Joes"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/10011/butter-cookies-ii/",
+      "status": "success",
+      "recipe_id": "301a7dcc-b94b-4d9c-9d86-a6928c95fd81",
+      "title": "Butter Cookies"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/100117/lasooni-murgh-garlic-flavored-spicy-chicken/",
+      "status": "success",
+      "recipe_id": "1370e557-c8b7-413d-bf4d-50a27b67cc64",
+      "title": "Lasooni Murgh (Garlic Flavored Spicy Chicken)"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/100118/paneer-home-made/",
+      "status": "success",
+      "recipe_id": "cdaeb45a-3e87-4e63-99f7-44a488bc9edc",
+      "title": "Paneer (Home Made)"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/10012/kourabiedes-i/",
+      "status": "success",
+      "recipe_id": "ae02963d-9f88-4e31-a549-4febe187ea0f",
+      "title": "Kourabiedes"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/10013/cherry-cornflake-cookies/",
+      "status": "success",
+      "recipe_id": "ff5d242c-fd92-4973-b951-b570222e4b98",
+      "title": "Cherry-Cornflake Cookies"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/10015/drommar/",
+      "status": "success",
+      "recipe_id": "828def4d-c481-44c5-820f-0cb3e95b4c60",
+      "title": "Drommar"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/10016/whoopie-pies-i/",
+      "status": "success",
+      "recipe_id": "a6559cb7-7e66-44c1-9d08-914410b49bb6",
+      "title": "Whoopie Pies"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/100161/scallops-in-pastry-with-lobster-sauce/",
+      "status": "success",
+      "recipe_id": "498601bd-7ee6-46ba-a016-eafcc0625672",
+      "title": "Scallops in Pastry with Lobster Sauce"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/100182/grandpas-classic-coney-sauce/",
+      "status": "success",
+      "recipe_id": "f19c106b-7393-4121-92e9-62a38e548418",
+      "title": "Grandpa's Classic Coney Sauce"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/10019/chocolate-peanut-butter-bars-ii/",
+      "status": "success",
+      "recipe_id": "034ea042-51da-4259-b079-5f8ff54466d3",
+      "title": "No-Bake Chocolate Peanut Butter Bars"
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/100195/baked-haddock/",
+      "status": "success",
+      "recipe_id": "aaddb8a2-330b-4cf0-8ebe-3e5508ae814f",
+      "title": "Baked Haddock"
+    }
+  ]
+}

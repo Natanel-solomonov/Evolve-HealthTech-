@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Advanced Kettlebell Windmill",
+        "primary_muscles": [
+            "abdominals"
+        ],
+        "secondary_muscles": [
+            "glutes",
+            "hamstrings",
+            "shoulders"
+        ],
+        "category": "strength"
+    },
+    {
+        "name": "Air Bike",
+        "primary_muscles": [
+            "abdominals"
+        ],
+        "secondary_muscles": [],
+        "category": "strength"
+    },
+    {
+        "name": "All Fours Quad Stretch",
+        "primary_muscles": [
+            "quadriceps"
+        ],
+        "secondary_muscles": [
+            "quadriceps"
+        ],
+        "category": "stretching"
+    }
+]
